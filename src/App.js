@@ -14,6 +14,7 @@ class App extends Component {
     state= {
         fetchData:[],
         visibleData:[],
+
     }
     filterForm=( text)=>{
         console.log(text)
@@ -49,7 +50,7 @@ class App extends Component {
     return (
       <div className="App">
         <FetchForm onSubmit={this.fetchForm}/>
-
+          {this.state.fetchData.length> 0 && <FilterForm onSubmit={this.filterData}></FilterForm>}
           <div>
               <FilterForm onSubmit={this.filterForm}/>
               <div>
@@ -60,7 +61,8 @@ class App extends Component {
                                 rating={rating}/>
                   ))}
               </div>
-              <Stact data = {visibleData}/>
+
+              { visibleData.length >0 && <Stact data = {visibleData}/>}
           </div>
 
 
