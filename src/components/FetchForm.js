@@ -3,24 +3,22 @@ import React, { Component } from 'react';
 
 class FetchForm extends Component {
 
-  state = {
-    value: '99'
-  }
+input = null
 
   submit = (e) => {
-
+    e.preventDefault()
+      this.props.onSubmit()
+      this.props.onSubmit(this.input.value)
   }
 
-  change = (e) => {
-    this.setState({
-      value: e.target.value
-    })
-  }
+
 
   render() {
     return (
       <form onSubmit={this.submit}>
-        <input type="number" value={this.state.value}
+        <input type="number"
+               defaultValue={10}
+               ref={ element => this.input = element}
                onChange={this.change} />
         <input type="submit" value="Fetch Data"/>
       </form>
