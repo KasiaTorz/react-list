@@ -5,7 +5,7 @@ import FetchForm from './components/FetchForm.js'
 import ListItem from './components/ListItem.js'
 import { sortComparator } from './utis.js'
 import FilterForm from "./components/FilterForm";
-
+import Stact from './components/Stact'
 
 const API_URL = 'https://sandbox-rkrajewski.firebaseio.com/photos.json?orderBy=%22id%22&startAt=0&endAt='
 
@@ -60,7 +60,7 @@ class App extends Component {
                                 rating={rating}/>
                   ))}
               </div>
-
+              <Stact data = {visibleData}/>
           </div>
 
 

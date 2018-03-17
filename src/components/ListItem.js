@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Statc from "./Stact";
 
 class ListItem extends Component {
 
@@ -15,7 +14,7 @@ class ListItem extends Component {
                     }
                 </div>
                 <div>{title}</div>
-                <Statc rating={rating}/>
+                <div> {rating}</div>
             </div>
 
         );

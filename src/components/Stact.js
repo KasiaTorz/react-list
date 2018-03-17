@@ -1,30 +1,48 @@
 import React, { Component } from 'react';
 
+const ratingNames = [
+
+    'Not rated yet',
+
+    'very poor',
+
+    'poor',
+
+    'avg',
+
+    'good',
+
+    'very good',
+]
+
+const getStats = data => data.reduce((prev, current) =>{
+   const ratingName = ratingNames[current.rating]
+   if (prev[ratingName]){
+        prev[ratingName] +=1
+   } else {
+       prev[ratingName] =1
+    }
+    return prev
+
+}, {})
 
 class Statc extends Component {
 
 
-
     render() {
+        const stats = getStats(this.props.data)
+        console.log(stats)
 
-        const ratingNames = [
+        return (
+            <div>{ratingNames.map(item =>
 
-            'Not rated yet',
+                <div>{item}{stats[item]}
+                </div>
+            )}
 
-            'very poor',
-
-            'poor',
-
-            'avg',
-
-            'good',
-
-            'very good',
-        ]
-        return(
-            <div>{ ratingNames[this.props.rating]} </div>
+            </div>
         )
+
     }
 }
-
 export default Statc;
