@@ -18,7 +18,7 @@ class FetchForm extends Component {
               <input type="number"
                      defaultValue={10}
                      ref={ element => this.input = element}
-                     onChange={this.change} />
+                      />
               <input type="submit" value="Fetch Data"/>
             </form>
         );

@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-
+import Statc from "./Stact";
 
 class ListItem extends Component {
-render(){
-    const {title} = this.props
-    return(
-        <div>
-            <div><image src="{image} alt="/></div>
-            <div>{title}</div>
-            <div>{rating}</div>
+
+    render() {
+        const { title, image, rating } = this.props
+
+        return (
+            <div>
+                <div>
+                    {image ?
+                        <img src={image} alt="error"/> :
+                        <span>No image :(</span>
+                    }
+                </div>
+                <div>{title}</div>
+                <Statc rating={rating}/>
             </div>
-        </div>
-    )
+
+        );
+
+    }
+
 }
-}
+
+
 
 export default ListItem;

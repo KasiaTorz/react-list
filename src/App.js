@@ -3,49 +3,67 @@ import logo from './logo.svg';
 import './App.css';
 import FetchForm from './components/FetchForm.js'
 import ListItem from './components/ListItem.js'
-const API_URL = 'https://sandbox-rkrajewski.firebaseio.com/photos.json?orderBy=%22id%22&startAt=0&endAt='
+import { sortComparator } from './utis.js'
+import FilterForm from "./components/FilterForm";
 
+
+const API_URL = 'https://sandbox-rkrajewski.firebaseio.com/photos.json?orderBy=%22id%22&startAt=0&endAt='
 
 class App extends Component {
 
     state= {
-        fetchData:[]
+        fetchData:[],
+        visibleData:[],
     }
-
+    filterForm=( text)=>{
+        console.log(text)
+    }
   fetchForm = (numberOfItemsToFetch) => {
   fetch(API_URL + numberOfItemsToFetch)
       .then(response => response.json())
       .then(Object.values)
-
+      .then(fetchData => fetchData.sort (sortComparator))
       .then(fetchData => {
         this.setState({
-         fetchData
+         fetchData,
+         visibleData:fetchData,
         })
+      console.log(fetchData);
+      })
+  }
 
+  filterForm= (filterbyText)=>{
+        const  {fetchData} = this.state
+        const visibleData= fetchData.filter(item => {
+            return item.title.toLowerCase().
+            indexOf(filterbyText.toLowerCase()) !== -1
+        })
+      this.setState({
+          visibleData
       })
   }
 
 
   render() {
-      const {fetchData}= this.state
+      const {visibleData}= this.state
     return (
       <div className="App">
         <FetchForm onSubmit={this.fetchForm}/>
 
-        <div>
-            {this.state.fetchData.map(item => (
-                <div key={item.id}>{item.title}</div>
-            ))}
-        </div>
+          <div>
+              <FilterForm onSubmit={this.filterForm}/>
+              <div>
+                  {visibleData.map(({id,title,image,rating } ) => (
+                      <ListItem key={id}
+                                title={title}
+                                image={image}
+                                rating={rating}/>
+                  ))}
+              </div>
 
-        <div>
-            {this.state.fetchData.map(({id,title,image,rating } )=>(
-                <ListItem key={id}
-                          title={title}
-                          image={image}
-                          rating={ rating}/>
-            ))}
-        </div>
+          </div>
+
+
       </div>
     );
   }
